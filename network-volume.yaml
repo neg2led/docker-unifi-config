@@ -1,0 +1,22 @@
+volumes:
+  # NFSv3
+  backup:
+    driver_opts:
+      type: "nfs"
+      o: "addr=10.40.0.199,nolock,soft,rw"
+      device: ":/docker/unifi/backup"
+  # NFSv4
+  backup:
+    driver_opts:
+      type: "nfs"
+      o: "addr=10.40.0.199,nfsvers=4,async,rw"
+      device: ":/docker/unifi/backup"
+  # CIFS/SMB
+  # Note: addr=<hostname> in the 'o' option is necessary if using DNS
+  #       because Docker has to do the DNS lookup itself.
+  backup:
+    driver_opts:
+      type: "cifs"
+      o: "addr=fileserver.local,username=unifi,password=unifi,file_mode=0777,dir_mode=0777"
+      device: "//fileserver.local/unifi/backup"
+
